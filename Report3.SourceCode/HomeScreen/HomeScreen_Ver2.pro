@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 TEMPLATE = app
 TARGET = HomeScreen
+VERSION = 1.0.0
 
 SOURCES += \
         App/Climate/climatemodel.cpp \
