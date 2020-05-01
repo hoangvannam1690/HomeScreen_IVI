@@ -25,7 +25,7 @@ import "./../Phone/"
 // https://doc.qt.io/QtSafeRenderer/qtsaferenderer-saferenderer-qtcluster-example.html
 //
 
-
+// OK
 Item {
     id: root
     property real screenWidth: screenSize.getAppWidth()
