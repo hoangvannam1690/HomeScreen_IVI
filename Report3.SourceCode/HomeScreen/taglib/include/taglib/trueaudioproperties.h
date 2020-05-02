@@ -38,7 +38,7 @@ namespace TagLib {
 
     class File;
 
-    static const unsigned int HeaderSize = 18;
+    static const uint HeaderSize = 18;
 
     //! An implementation of audio property reading for TrueAudio
 
@@ -61,57 +61,22 @@ namespace TagLib {
        */
       virtual ~Properties();
 
-      /*!
-       * Returns the length of the file in seconds.  The length is rounded down to
-       * the nearest whole second.
-       *
-       * \note This method is just an alias of lengthInSeconds().
-       *
-       * \deprecated
-       */
-      TAGLIB_DEPRECATED virtual int length() const;
+      // Reimplementations.
 
-      /*!
-       * Returns the length of the file in seconds.  The length is rounded down to
-       * the nearest whole second.
-       *
-       * \see lengthInMilliseconds()
-       */
-      // BIC: make virtual
-      int lengthInSeconds() const;
-
-      /*!
-       * Returns the length of the file in milliseconds.
-       *
-       * \see lengthInSeconds()
-       */
-      // BIC: make virtual
-      int lengthInMilliseconds() const;
-
-      /*!
-       * Returns the average bit rate of the file in kb/s.
-       */
+      virtual int length() const;
       virtual int bitrate() const;
-
-      /*!
-       * Returns the sample rate in Hz.
-       */
       virtual int sampleRate() const;
-
-      /*!
-       * Returns the number of audio channels.
-       */
       virtual int channels() const;
 
       /*!
-       * Returns the number of bits per audio sample.
+       * Returns number of bits per sample.
        */
       int bitsPerSample() const;
 
       /*!
        * Returns the total number of sample frames
        */
-      unsigned int sampleFrames() const;
+      uint sampleFrames() const;
 
       /*!
        * Returns the major version number.
@@ -122,7 +87,7 @@ namespace TagLib {
       Properties(const Properties &);
       Properties &operator=(const Properties &);
 
-      void read(const ByteVector &data, long streamLength);
+      void read();
 
       class PropertiesPrivate;
       PropertiesPrivate *d;

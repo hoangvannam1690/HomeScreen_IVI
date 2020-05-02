@@ -73,22 +73,28 @@ using namespace TagLib;
 
 class Player : public QObject {
   Q_OBJECT
- public:
+public:
   explicit Player(QObject *parent = nullptr);
+  ~Player();
 
   void addToPlaylist(const QList<QUrl> &urls);
 
- public slots:
-  void open();
+public slots:
+  void open(QString path);
   QString getTimeInfo(qint64 currentInfo);
 
- public:
+public:
   QString getAlbumArt(MPEG::File *mpegFile);
   QString getAlbumArt(QUrl url);
 
   QMediaPlayer *m_player = nullptr;
   QMediaPlaylist *m_playlist = nullptr;
   PlaylistModel *m_playlistModel = nullptr;
+
+private:
+  QString musicDir;
+  // Xóa Album art (.jpg) đã tạo ra
+  void clearJpg();
 };
 
-#endif  // PLAYER_H
+#endif // PLAYER_H

@@ -113,12 +113,7 @@ namespace TagLib
       /*!
        * Copies the contents of \a other into this item.
        */
-      Attribute &operator=(const Attribute &other);
-
-      /*!
-       * Exchanges the content of the Attribute by the content of \a other.
-       */
-      void swap(Attribute &other);
+      ASF::Attribute &operator=(const Attribute &other);
 
       /*!
        * Destroys the attribute.

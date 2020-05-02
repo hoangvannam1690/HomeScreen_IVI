@@ -63,7 +63,7 @@ namespace TagLib {
           NoTags  = 0x0000,
           //! Matches ID3v2 tags.
           ID3v2   = 0x0001,
-          //! Matches INFO tags.
+          //! Matches Info tags.
           Info    = 0x0002,
           //! Matches all tag types.
           AllTags = 0xffff
@@ -97,8 +97,8 @@ namespace TagLib {
 
         /*!
          * Returns the ID3v2 Tag for this file.
-         *
-         * \note This method does not return all the tags for this file for
+         * 
+         * \note This method does not return all the tags for this file for 
          * backward compatibility.  Will be fixed in TagLib 2.0.
          */
         ID3v2::Tag *tag() const;
@@ -106,8 +106,8 @@ namespace TagLib {
         /*!
          * Returns the ID3v2 Tag for this file.
          *
-         * \note This always returns a valid pointer regardless of whether or not
-         * the file on disk has an ID3v2 tag.  Use hasID3v2Tag() to check if the
+         * \note This always returns a valid pointer regardless of whether or not 
+         * the file on disk has an ID3v2 tag.  Use hasID3v2Tag() to check if the 
          * file on disk actually has an ID3v2 tag.
          *
          * \see hasID3v2Tag()
@@ -117,22 +117,13 @@ namespace TagLib {
         /*!
          * Returns the RIFF INFO Tag for this file.
          *
-         * \note This always returns a valid pointer regardless of whether or not
-         * the file on disk has a RIFF INFO tag.  Use hasInfoTag() to check if the
+         * \note This always returns a valid pointer regardless of whether or not 
+         * the file on disk has a RIFF INFO tag.  Use hasInfoTag() to check if the 
          * file on disk actually has a RIFF INFO tag.
          *
          * \see hasInfoTag()
          */
         Info::Tag *InfoTag() const;
-
-        /*!
-         * This will strip the tags that match the OR-ed together TagTypes from the
-         * file.  By default it strips all tags.  It returns true if the tags are
-         * successfully stripped.
-         *
-         * \note This will update the file immediately.
-         */
-        void strip(TagTypes tags = AllTags);
 
         /*!
          * Implements the unified property interface -- export function.
@@ -159,20 +150,8 @@ namespace TagLib {
          */
         virtual bool save();
 
-        /*!
-         * \deprecated
-         */
-        TAGLIB_DEPRECATED bool save(TagTypes tags, bool stripOthers, int id3v2Version = 4);
-
-        /*!
-         * Save the file.  If \a strip is specified, it is possible to choose if
-         * tags not specified in \a tags should be stripped from the file or
-         * retained.  With \a version, it is possible to specify whether ID3v2.4
-         * or ID3v2.3 should be used.
-         */
-        bool save(TagTypes tags, StripTags strip = StripOthers,
-                  ID3v2::Version version = ID3v2::v4);
-
+        bool save(TagTypes tags, bool stripOthers = true, int id3v2Version = 4);
+        
         /*!
          * Returns whether or not the file on disk actually has an ID3v2 tag.
          *
@@ -187,23 +166,18 @@ namespace TagLib {
          */
         bool hasInfoTag() const;
 
-        /*!
-         * Returns whether or not the given \a stream can be opened as a WAV
-         * file.
-         *
-         * \note This method is designed to do a quick check.  The result may
-         * not necessarily be correct.
-         */
-        static bool isSupported(IOStream *stream);
-
       private:
         File(const File &);
         File &operator=(const File &);
 
-        void read(bool readProperties);
-        void removeTagChunks(TagTypes tags);
+        void read(bool readProperties, Properties::ReadStyle propertiesStyle);
 
-        friend class Properties;
+        void strip(TagTypes tags);
+
+        /*!
+         * Returns the index of the chunk that its name is "LIST" and list type is "INFO".
+         */
+        uint findInfoTagChunk();
 
         class FilePrivate;
         FilePrivate *d;

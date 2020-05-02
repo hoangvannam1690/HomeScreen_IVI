@@ -1,4 +1,7 @@
-QT += quick multimedia dbus xml core #quickcontrols2
+QT += quick multimedia dbus xml core  network positioning location   #quickcontrols2
+
+#QT += qml quick network positioning location
+
 CONFIG += c++11
 CONFIG+=qml_debug
 
@@ -66,3 +69,15 @@ else:unix: {
 }
 INCLUDEPATH += $$PWD/taglib/include
 DEPENDPATH += $$PWD/taglib/include
+
+
+
+### kit: MinGW 64bit
+#win32: {
+#    LIBS += -L$$PWD/mmTaglib/bin/ -ltag
+#}
+#else:unix: {
+#    LIBS += -L$$PWD/mmTaglib/lib/ -ltag
+#}
+#INCLUDEPATH += $$PWD/mmTaglib/include
+#DEPENDPATH += $$PWD/mmTaglib/include

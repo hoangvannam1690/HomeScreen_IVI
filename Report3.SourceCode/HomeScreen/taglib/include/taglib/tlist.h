@@ -72,7 +72,7 @@ namespace TagLib {
 
     /*!
      * Destroys this List instance.  If auto deletion is enabled and this list
-     * contains a pointer type all of the members are also deleted.
+     * contains a pointer type all of the memebers are also deleted.
      */
     virtual ~List();
 
@@ -146,16 +146,8 @@ namespace TagLib {
 
     /*!
      * Returns the number of elements in the list.
-     *
-     * \see isEmpty()
      */
-    unsigned int size() const;
-
-    /*!
-     * Returns whether or not the list is empty.
-     *
-     * \see size()
-     */
+    uint size() const;
     bool isEmpty() const;
 
     /*!
@@ -213,14 +205,14 @@ namespace TagLib {
      *
      * \warning This method is slow.  Use iterators to loop through the list.
      */
-    T &operator[](unsigned int i);
+    T &operator[](uint i);
 
     /*!
      * Returns a const reference to item \a i in the list.
      *
      * \warning This method is slow.  Use iterators to loop through the list.
      */
-    const T &operator[](unsigned int i) const;
+    const T &operator[](uint i) const;
 
     /*!
      * Make a shallow, implicitly shared, copy of \a l.  Because this is
@@ -228,11 +220,6 @@ namespace TagLib {
      * pass-by-value usage.
      */
     List<T> &operator=(const List<T> &l);
-
-    /*!
-     * Exchanges the content of this list by the content of \a l.
-     */
-    void swap(List<T> &l);
 
     /*!
      * Compares this list with \a l and returns true if all of the elements are

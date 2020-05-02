@@ -51,74 +51,27 @@ namespace TagLib {
     public:
       /*!
        * Create an instance of APE::Properties with the data read from the
-       * APE::File \a file.
-       *
-       * \deprecated
+       * ByteVector \a data.
        */
-      TAGLIB_DEPRECATED Properties(File *file, ReadStyle style = Average);
-
-      /*!
-       * Create an instance of APE::Properties with the data read from the
-       * APE::File \a file.
-       */
-      Properties(File *file, long streamLength, ReadStyle style = Average);
+      Properties(File *f, ReadStyle style = Average);
 
       /*!
        * Destroys this APE::Properties instance.
        */
       virtual ~Properties();
 
-      /*!
-       * Returns the length of the file in seconds.  The length is rounded down to
-       * the nearest whole second.
-       *
-       * \note This method is just an alias of lengthInSeconds().
-       *
-       * \deprecated
-       */
-      TAGLIB_DEPRECATED virtual int length() const;
+      // Reimplementations.
 
-      /*!
-       * Returns the length of the file in seconds.  The length is rounded down to
-       * the nearest whole second.
-       *
-       * \see lengthInMilliseconds()
-       */
-      // BIC: make virtual
-      int lengthInSeconds() const;
-
-      /*!
-       * Returns the length of the file in milliseconds.
-       *
-       * \see lengthInSeconds()
-       */
-      // BIC: make virtual
-      int lengthInMilliseconds() const;
-
-      /*!
-       * Returns the average bit rate of the file in kb/s.
-       */
+      virtual int length() const;
       virtual int bitrate() const;
-
-      /*!
-       * Returns the sample rate in Hz.
-       */
       virtual int sampleRate() const;
-
-      /*!
-       * Returns the number of audio channels.
-       */
       virtual int channels() const;
 
       /*!
-       * Returns the number of bits per audio sample.
+       * Returns number of bits per sample.
        */
       int bitsPerSample() const;
-
-      /*!
-       * Returns the total number of audio samples in file.
-       */
-      unsigned int sampleFrames() const;
+      uint sampleFrames() const;
 
       /*!
        * Returns APE version.
@@ -129,10 +82,13 @@ namespace TagLib {
       Properties(const Properties &);
       Properties &operator=(const Properties &);
 
-      void read(File *file, long streamLength);
+      void read();
 
-      void analyzeCurrent(File *file);
-      void analyzeOld(File *file);
+      long findDescriptor();
+      long findID3v2();
+
+      void analyzeCurrent();
+      void analyzeOld();
 
       class PropertiesPrivate;
       PropertiesPrivate *d;

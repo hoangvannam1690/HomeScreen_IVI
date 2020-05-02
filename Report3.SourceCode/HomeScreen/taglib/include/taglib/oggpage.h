@@ -41,7 +41,7 @@ namespace TagLib {
     /*!
      * This is an implementation of the pages that make up an Ogg stream.
      * This handles parsing pages and breaking them down into packets and handles
-     * the details of packets spanning multiple pages and pages that contain
+     * the details of packets spanning multiple pages and pages that contiain
      * multiple packets.
      *
      * In most Xiph.org formats the comments are found in the first few packets,
@@ -71,29 +71,12 @@ namespace TagLib {
       const PageHeader *header() const;
 
       /*!
-       * Returns the index of the page within the Ogg stream.  This helps make it
-       * possible to determine if pages have been lost.
-       *
-       * \see setPageSequenceNumber()
-       */
-      int pageSequenceNumber() const;
-
-      /*!
-       * Sets the page's position in the stream to \a sequenceNumber.
-       *
-       * \see pageSequenceNumber()
-       */
-      void setPageSequenceNumber(int sequenceNumber);
-
-      /*!
        * Returns a copy of the page with \a sequenceNumber set as sequence number.
        *
        * \see header()
        * \see PageHeader::setPageSequenceNumber()
-       *
-       * \deprecated Always returns null.
        */
-      TAGLIB_DEPRECATED Page *getCopyWithNewPageSequenceNumber(int sequenceNumber);
+      Page* getCopyWithNewPageSequenceNumber(int sequenceNumber);
 
       /*!
        * Returns the index of the first packet wholly or partially contained in
@@ -138,7 +121,7 @@ namespace TagLib {
       /*!
        * Returns the number of packets (whole or partial) in this page.
        */
-      unsigned int packetCount() const;
+      uint packetCount() const;
 
       /*!
        * Returns a list of the packets in this page.
@@ -179,7 +162,7 @@ namespace TagLib {
 
       /*!
        * Pack \a packets into Ogg pages using the \a strategy for pagination.
-       * The page number indicator inside of the rendered packets will start
+       * The page number indicater inside of the rendered packets will start
        * with \a firstPage and be incremented for each page rendered.
        * \a containsLastPacket should be set to true if \a packets contains the
        * last page in the stream and will set the appropriate flag in the last
@@ -198,7 +181,7 @@ namespace TagLib {
        */
       static List<Page *> paginate(const ByteVectorList &packets,
                                    PaginationStrategy strategy,
-                                   unsigned int streamSerialNumber,
+                                   uint streamSerialNumber,
                                    int firstPage,
                                    bool firstPacketContinued = false,
                                    bool lastPacketCompleted = true,
@@ -210,7 +193,7 @@ namespace TagLib {
        * for each page will be set to \a pageNumber.
        */
       Page(const ByteVectorList &packets,
-           unsigned int streamSerialNumber,
+           uint streamSerialNumber,
            int pageNumber,
            bool firstPacketContinued = false,
            bool lastPacketCompleted = true,

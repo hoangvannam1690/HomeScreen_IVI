@@ -35,47 +35,24 @@ namespace TagLib {
 
   namespace MPEG {
 
-    class File;
-
-    //! An implementation of the Xing/VBRI headers
+    //! An implementation of the Xing VBR headers
 
     /*!
-     * This is a minimalistic implementation of the Xing/VBRI VBR headers.
-     * Xing/VBRI headers are often added to VBR (variable bit rate) MP3 streams
-     * to make it easy to compute the length and quality of a VBR stream.  Our
-     * implementation is only concerned with the total size of the stream (so
-     * that we can calculate the total playing time and the average bitrate).
-     * It uses <a href="http://home.pcisys.net/~melanson/codecs/mp3extensions.txt">
-     * this text</a> and the XMMS sources as references.
+     * This is a minimalistic implementation of the Xing VBR headers.  Xing
+     * headers are often added to VBR (variable bit rate) MP3 streams to make it
+     * easy to compute the length and quality of a VBR stream.  Our implementation
+     * is only concerned with the total size of the stream (so that we can
+     * calculate the total playing time and the average bitrate).  It uses
+     * <a href="http://home.pcisys.net/~melanson/codecs/mp3extensions.txt">this text</a>
+     * and the XMMS sources as references.
      */
 
     class TAGLIB_EXPORT XingHeader
     {
     public:
       /*!
-       * The type of the VBR header.
-       */
-      enum HeaderType
-      {
-        /*!
-         * Invalid header or no VBR header found.
-         */
-        Invalid = 0,
-
-        /*!
-         * Xing header.
-         */
-        Xing = 1,
-
-        /*!
-         * VBRI header.
-         */
-        VBRI = 2,
-      };
-
-      /*!
-       * Parses an Xing/VBRI header based on \a data which contains the entire
-       * first MPEG frame.
+       * Parses a Xing header based on \a data.  The data must be at least 16
+       * bytes long (anything longer than this is discarded).
        */
       XingHeader(const ByteVector &data);
 
@@ -86,33 +63,27 @@ namespace TagLib {
 
       /*!
        * Returns true if the data was parsed properly and if there is a valid
-       * Xing/VBRI header present.
+       * Xing header present.
        */
       bool isValid() const;
 
       /*!
        * Returns the total number of frames.
        */
-      unsigned int totalFrames() const;
+      uint totalFrames() const;
 
       /*!
        * Returns the total size of stream in bytes.
        */
-      unsigned int totalSize() const;
-
-      /*!
-       * Returns the type of the VBR header.
-       */
-      HeaderType type() const;
+      uint totalSize() const;
 
       /*!
        * Returns the offset for the start of this Xing header, given the
        * version and channels of the frame
-       *
-       * \deprecated Always returns 0.
        */
-      TAGLIB_DEPRECATED static int xingHeaderOffset(TagLib::MPEG::Header::Version v,
-                                                    TagLib::MPEG::Header::ChannelMode c);
+      // BIC: rename to offset()
+      static int xingHeaderOffset(TagLib::MPEG::Header::Version v,
+                                  TagLib::MPEG::Header::ChannelMode c);
 
     private:
       XingHeader(const XingHeader &);

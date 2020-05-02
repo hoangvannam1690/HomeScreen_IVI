@@ -44,6 +44,8 @@ MouseArea {
             zoomLevel: 14
             copyrightsVisible: false
             enabled: false
+
+
             Component.onCompleted: {
                 mapView.addMapItem(marker)
             }

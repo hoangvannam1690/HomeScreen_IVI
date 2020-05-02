@@ -54,7 +54,7 @@ namespace TagLib {
        *
        * \note In the current implementation, \a propertiesStyle is ignored.
        */
-      File(FileName file, bool readProperties = true,
+      File(FileName file, bool readProperties = true, 
            Properties::ReadStyle audioPropertiesStyle = Properties::Average);
 
       /*!
@@ -66,7 +66,7 @@ namespace TagLib {
        *
        * \note In the current implementation, \a propertiesStyle is ignored.
        */
-      File(IOStream *stream, bool readProperties = true,
+      File(IOStream *stream, bool readProperties = true, 
            Properties::ReadStyle audioPropertiesStyle = Properties::Average);
 
       /*!
@@ -114,23 +114,10 @@ namespace TagLib {
        */
       bool save();
 
-      /*!
-       * Returns whether or not the file on disk actually has an MP4 tag, or the
-       * file has a Metadata Item List (ilst) atom.
-       */
-      bool hasMP4Tag() const;
-
-      /*!
-       * Returns whether or not the given \a stream can be opened as an ASF
-       * file.
-       *
-       * \note This method is designed to do a quick check.  The result may
-       * not necessarily be correct.
-       */
-      static bool isSupported(IOStream *stream);
-
     private:
-      void read(bool readProperties);
+
+      void read(bool readProperties, Properties::ReadStyle audioPropertiesStyle);
+      bool checkValid(const MP4::AtomList &list);
 
       class FilePrivate;
       FilePrivate *d;

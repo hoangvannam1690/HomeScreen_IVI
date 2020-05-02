@@ -39,8 +39,7 @@ namespace TagLib {
 // A base for the generic and specialized private class types.  New
 // non-templatized members should be added here.
 
-// BIC change to RefCounter
-class ListPrivateBase : public RefCounterOld
+class ListPrivateBase : public RefCounter
 {
 public:
   ListPrivateBase() : autoDelete(false) {}
@@ -89,9 +88,9 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 template <class T>
-List<T>::List() :
-  d(new ListPrivate<T>())
+List<T>::List()
 {
+  d = new ListPrivate<T>;
 }
 
 template <class T>
@@ -194,9 +193,9 @@ List<T> &List<T>::clear()
 }
 
 template <class T>
-unsigned int List<T>::size() const
+TagLib::uint List<T>::size() const
 {
-  return static_cast<unsigned int>(d->list.size());
+  return d->list.size();
 }
 
 template <class T>
@@ -208,7 +207,6 @@ bool List<T>::isEmpty() const
 template <class T>
 typename List<T>::Iterator List<T>::find(const T &value)
 {
-  detach();
   return std::find(d->list.begin(), d->list.end(), value);
 }
 
@@ -263,19 +261,23 @@ T &List<T>::back()
 }
 
 template <class T>
-T &List<T>::operator[](unsigned int i)
+T &List<T>::operator[](uint i)
 {
   Iterator it = d->list.begin();
-  std::advance(it, i);
+
+  for(uint j = 0; j < i; j++)
+    ++it;
 
   return *it;
 }
 
 template <class T>
-const T &List<T>::operator[](unsigned int i) const
+const T &List<T>::operator[](uint i) const
 {
   ConstIterator it = d->list.begin();
-  std::advance(it, i);
+
+  for(uint j = 0; j < i; j++)
+    ++it;
 
   return *it;
 }
@@ -283,16 +285,14 @@ const T &List<T>::operator[](unsigned int i) const
 template <class T>
 List<T> &List<T>::operator=(const List<T> &l)
 {
-  List<T>(l).swap(*this);
+  if(&l == this)
+    return *this;
+
+  if(d->deref())
+    delete d;
+  d = l.d;
+  d->ref();
   return *this;
-}
-
-template <class T>
-void List<T>::swap(List<T> &l)
-{
-  using std::swap;
-
-  swap(d, l.d);
 }
 
 template <class T>

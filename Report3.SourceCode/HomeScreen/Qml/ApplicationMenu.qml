@@ -15,12 +15,12 @@ ListView {
     // Cần enable key Navigation, nếu giá trị false, không thể Navigation
     keyNavigationEnabled: true
 
-    // Hiệu ứng di chuyển item
+    // Hiệu ứng đổi chỗ item
+    move: Transition {
+        NumberAnimation { properties: "x,y"; duration: 200 }
+    }
     moveDisplaced: Transition {
-        NumberAnimation{
-            properties: "x,y"
-            duration: 200
-        }
+        NumberAnimation{ properties: "x,y"; duration: 200 }
     }
 
     function saveData () {
@@ -62,7 +62,15 @@ ListView {
 
             Keys.onPressed: {
                 // Khi nhấn Up/Down thì chuyển focus lên Widget, do đó bỏ focus tại app list
-                app.focus = true
+//                 app.focus = true
+// FIXME: tesss.........
+                //=================================================================================
+                if (event.key === Qt.Key_5) {
+                    focusPosition = "Widget"
+                    app.state = "Normal"
+                }
+                //=================================================================================
+
                 if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) {
                     widgetArea.forceActiveFocus()
                     focusPosition = "Widget"

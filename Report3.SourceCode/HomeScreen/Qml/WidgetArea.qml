@@ -12,7 +12,7 @@ ListView {
 
     displaced: Transition {
         NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
-    }        
+    }
 
     keyNavigationEnabled: true    
 
@@ -74,11 +74,11 @@ ListView {
                     widgetModel.move(visualIndex,visualIndex -1,1)
                     event.accepted = true
                 }
-                if((event.modifiers & Qt.ShiftModifier) && (event.key === Qt.Key_Right) && visualIndex < lvWidget.count) {
+                if((event.modifiers & Qt.ShiftModifier) && (event.key === Qt.Key_Right) && visualIndex < lvWidget.count-1) {
                     console.log("Shift + move to right" )
                     widgetModel.move(visualIndex,visualIndex +1,1)
                     event.accepted = true
-                }               
+                }
             }
 
             Keys.onReleased: {
@@ -97,7 +97,7 @@ ListView {
                 anchors {
                     horizontalCenter: parent.horizontalCenter;
                     verticalCenter: parent.verticalCenter
-                }                                
+                }
 
                 sourceComponent: {
                     switch(model.type) {
@@ -105,7 +105,7 @@ ListView {
                     case "climate": return climateWidget
                     case "media": return mediaWidget
                     }
-                }                
+                }
 
                 Drag.active: iconWidget.item.state === "Drag"
                 Drag.keys: "widget"
@@ -132,17 +132,17 @@ ListView {
         }        
     }
 
-    function mFocus() {
-        if(MapWidget.activeFocus){
-            console.log("map focus")
-        }
-        if(climateWidget.activeFocus){
-            console.log("climate focus")
-        }
-        if(mediaWidget.activeFocus){
-            console.log("media focus")
-        }
-    }
+//    function mFocus() {
+//        if(MapWidget.activeFocus){
+//            console.log("map focus")
+//        }
+//        if(climateWidget.activeFocus){
+//            console.log("climate focus")
+//        }
+//        if(mediaWidget.activeFocus){
+//            console.log("media focus")
+//        }
+//    }
 
     Component {
         id: mapWidget

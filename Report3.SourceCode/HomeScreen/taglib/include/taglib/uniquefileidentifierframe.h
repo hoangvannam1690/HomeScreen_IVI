@@ -46,7 +46,7 @@ namespace TagLib {
 
     public:
       /*!
-       * Creates a unique file identifier frame based on \a data.
+       * Creates a uniqe file identifier frame based on \a data.
        */
       UniqueFileIdentifierFrame(const ByteVector &data);
 

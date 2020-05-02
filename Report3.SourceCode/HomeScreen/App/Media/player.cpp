@@ -66,15 +66,24 @@ Player::Player(QObject *parent) : QObject(parent) {
   m_playlist = new QMediaPlaylist(this);
   m_player->setPlaylist(m_playlist);
   m_playlistModel = new PlaylistModel(this);
-  open();
+
+  // Khai báo path của music là folder Music mặc định của OS
+  musicDir = QStandardPaths::standardLocations(QStandardPaths::MusicLocation)[0];
+
+  open(musicDir);
   if (!m_playlist->isEmpty()) {
     m_playlist->setCurrentIndex(0);
   }
 }
 
-void Player::open() {
-  QDir directory(
-      QStandardPaths::standardLocations(QStandardPaths::MusicLocation)[0]);
+// Tự động xóa
+Player::~Player()
+{
+    clearJpg();
+}
+
+void Player::open(QString path) {
+QDir directory(path);
   QFileInfoList musics =
       directory.entryInfoList(QStringList() << "*.mp3" , QDir::Files);
   QList<QUrl> urls;
@@ -134,6 +143,16 @@ QString Player::getTimeInfo(qint64 currentInfo) {
     tStr = currentTime.toString(format);
   }
   return tStr;
+}
+
+void Player::clearJpg()
+{
+    QDir dir(musicDir);
+    dir.setNameFilters(QStringList() << "*.jpg");
+    dir.setFilter(QDir::Files);
+    for(const QString &dirFile: dir.entryList()) {
+        dir.remove(dirFile);
+    }
 }
 
 #if defined(Q_OS_WIN)
