@@ -19,7 +19,7 @@ ListView {
     model: DelegateModel {
         id: visualModelWidget
         model: ListModel {
-            id: widgetModel
+            id: widgetModel            
             ListElement { type: "map"; url: "qrc:/App/Map/Map.qml" }
             ListElement { type: "climate"; url: "qrc:/App/Climate/Climate.qml" }
             ListElement { type: "media"; url: "qrc:/App/Media/Media.qml" }
@@ -93,6 +93,7 @@ ListView {
                 property int visualIndex: 0
                 width: 635 * scaleRatio
                 height: 570 * scaleRatio
+                asynchronous: true
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter;

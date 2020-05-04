@@ -68,7 +68,8 @@ Player::Player(QObject *parent) : QObject(parent) {
   m_playlistModel = new PlaylistModel(this);
 
   // Khai báo path của music là folder Music mặc định của OS
-  musicDir = QStandardPaths::standardLocations(QStandardPaths::MusicLocation)[0];
+  musicDir =
+      QStandardPaths::standardLocations(QStandardPaths::MusicLocation)[0];
 
   open(musicDir);
   if (!m_playlist->isEmpty()) {
@@ -76,24 +77,19 @@ Player::Player(QObject *parent) : QObject(parent) {
   }
 }
 
-// Tự động xóa
-Player::~Player()
-{
-    clearJpg();
-}
+// Thực hiện xóa ảnh JPG khi thoát ứng dụng
+Player::~Player() { clearJpg(); }
 
 void Player::open(QString path) {
-QDir directory(path);
+  QDir directory(path);
   QFileInfoList musics =
-      directory.entryInfoList(QStringList() << "*.mp3" , QDir::Files);
+      directory.entryInfoList(QStringList() << "*.mp3", QDir::Files);
   QList<QUrl> urls;
   for (int i = 0; i < musics.length(); i++) {
     urls.append(QUrl::fromLocalFile(musics[i].absoluteFilePath()));
-
   }
   addToPlaylist(urls);
 }
-
 
 void Player::addToPlaylist(const QList<QUrl> &urls) {
   for (auto &url : urls) {
@@ -108,7 +104,6 @@ void Player::addToPlaylist(const QList<QUrl> &urls) {
     char *fName = new char[name.size() + 1];
     strcpy(fName, name.c_str());
 
-
 #if defined(Q_OS_WIN)
     FileRef f(fName);
     Tag *tag = f.tag();
@@ -121,8 +116,8 @@ void Player::addToPlaylist(const QList<QUrl> &urls) {
     FileRef f(url.path().toStdString().c_str());
     Tag *tag = f.tag();
     Song song(QString::fromWCharArray(tag->title().toCWString()),
-              QString::fromWCharArray(tag->artist().toCWString()), url.toDisplayString(),
-              getAlbumArt(url));
+              QString::fromWCharArray(tag->artist().toCWString()),
+              url.toDisplayString(), getAlbumArt(url));
 #endif
     m_playlistModel->addSong(song);
   }
@@ -145,14 +140,13 @@ QString Player::getTimeInfo(qint64 currentInfo) {
   return tStr;
 }
 
-void Player::clearJpg()
-{
-    QDir dir(musicDir);
-    dir.setNameFilters(QStringList() << "*.jpg");
-    dir.setFilter(QDir::Files);
-    for(const QString &dirFile: dir.entryList()) {
-        dir.remove(dirFile);
-    }
+void Player::clearJpg() {
+  QDir dir(musicDir);
+  dir.setNameFilters(QStringList() << "*.jpg");
+  dir.setFilter(QDir::Files);
+  for (const QString &dirFile : dir.entryList()) {
+    dir.remove(dirFile);
+  }
 }
 
 #if defined(Q_OS_WIN)
