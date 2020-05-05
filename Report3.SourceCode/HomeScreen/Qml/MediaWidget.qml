@@ -71,6 +71,7 @@ MouseArea {
         y: (56+343) *scaleRatio
         width: 551 *scaleRatio
         horizontalAlignment: Text.AlignHCenter
+        clip: true
         text: {
             if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
                 return myModel.data(myModel.index(playlistCurrentIndex,0), 258)
@@ -84,6 +85,8 @@ MouseArea {
         y: (56+343+55) *scaleRatio
         width: 551 *scaleRatio
         horizontalAlignment: Text.AlignHCenter
+        clip: true
+        elide: Text.ElideRight
         text: {
             if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
                 return myModel.data(myModel.index(playlistCurrentIndex,0), 257)

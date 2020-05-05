@@ -62,22 +62,10 @@ RC_FILE = appIcon.rc
 
 ## kit: MinGW 64bit
 win32: {
-    LIBS += -L$$PWD/taglib/bin/ -ltag
+    LIBS += -L$$PWD/taglib11/bin/ -ltag
 }
 else:unix: {
-    LIBS += -L$$PWD/taglib/lib/ -ltag
+    LIBS += -L$$PWD/taglib11/lib/ -ltag
 }
-INCLUDEPATH += $$PWD/taglib/include
-DEPENDPATH += $$PWD/taglib/include
-
-
-
-### kit: MinGW 64bit
-#win32: {
-#    LIBS += -L$$PWD/mmTaglib/bin/ -ltag
-#}
-#else:unix: {
-#    LIBS += -L$$PWD/mmTaglib/lib/ -ltag
-#}
-#INCLUDEPATH += $$PWD/mmTaglib/include
-#DEPENDPATH += $$PWD/mmTaglib/include
+INCLUDEPATH += $$PWD/taglib11/include
+DEPENDPATH += $$PWD/taglib11/include
