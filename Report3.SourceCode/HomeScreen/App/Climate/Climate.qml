@@ -2,14 +2,13 @@
 import "./../Common/"
 
 Item {
-    id: mroot
-//    width: 1920; height: 570 + 526
+    id: root
     property real screenWidth: screenSize.getAppWidth()
     property real screenHeight: screenSize.getAppHeight()
     property real appScale: screenSize.getScaleRatio()
 
     width: screenWidth
-    height: (570 + 526) * appScale
+    height: screenHeight - 104*appScale  // screenHeight - statusBar.height
 
     //Header
     AppHeader{
@@ -25,7 +24,7 @@ Item {
         color: "transparent"
 
         Rectangle {
-            id: root
+            id: climateRegion
             width: 635
             height: 570
             color: "transparent"

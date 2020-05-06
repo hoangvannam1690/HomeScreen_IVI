@@ -81,6 +81,7 @@ class PlaylistModel : public QAbstractListModel
 
 public:
     enum Roles {
+        // Qt::UserRole = 0x0100 = 256
         TitleRole = Qt::UserRole + 1,
         SingerRole,
         SourceRole,
@@ -93,6 +94,8 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     void addSong(Song &song);
+
+    ~PlaylistModel();
 
 protected:
     QHash<int, QByteArray> roleNames() const override;

@@ -34,7 +34,7 @@ Item {
     property string popupTile: "Title"
 
     width: screenWidth
-    height: screenHeight - (70 * appScale)
+    height: screenHeight - 104*appScale
 
     function openApplication(url){
         parent.push(url)

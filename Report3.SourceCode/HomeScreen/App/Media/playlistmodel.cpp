@@ -90,6 +90,11 @@ void PlaylistModel::addSong(Song &song)
     endInsertRows();
 }
 
+PlaylistModel::~PlaylistModel()
+{
+    qDebug() << "Detruct PlaylistModel";
+}
+
 QHash<int, QByteArray> PlaylistModel::roleNames() const
 {
     QHash<int, QByteArray> roles;

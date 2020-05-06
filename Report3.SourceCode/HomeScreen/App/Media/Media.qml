@@ -2,6 +2,10 @@
 import QtQuick.Controls 2.4
 import "./../../Qml"
 
+// sử dụng cho FileDialog
+import Qt.labs.platform 1.1
+import QtQuick.Dialogs 1.0
+
 Item {
     id: root
 
@@ -10,8 +14,7 @@ Item {
     property real appScale: screenSize.getScaleRatio()
 
     width: screenWidth
-    height: screenHeight - (104 * appScale)  //screenHeight - (70 * appScale)
-//    height: 1200-104
+    height: screenHeight - (104 * appScale)
 
     XAnimator{
         target: root
@@ -25,7 +28,7 @@ Item {
     AppHeader{
         id: headerItem
         width: root.width
-        height: 141 *appScale
+        height: 100 *appScale   //141 *appScale
 
         playlistButtonStatus: playlist_bt.opened ? 1 : 0
         onClickPlaylistButton: {
@@ -35,12 +38,29 @@ Item {
                 playlist_bt.close()
             }
         }
+
+        // Hiển thị icon Folder
+        // Click để lựa chọn add folder music
+        Image {
+            id: addMusic
+            source: "qrc:/App/Media/Image/Folder2.png"
+            width: 85 *appScale
+            height: width
+            visible: mediaInfoControl.visible
+            anchors.right: parent.right
+            anchors.rightMargin: 35 *appScale
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: openMediaFolder.open()
+            }
+        }
     }
 
     //Playlist
     PlaylistView{
-        id: playlist_bt       
-        y: headerItem.height + 104*appScale    //141 + 104
+        id: playlist_bt
+        y: headerItem.height + 104*appScale
         width: 675  *appScale
         height: parent.height-headerItem.height
     }
@@ -56,6 +76,8 @@ Item {
 
         width: root.width - playlist_bt.width
         height: root.height - headerItem.height
+
+        visible: musicCount
     }
 
     //------------------- Hardkey control ------------------------
@@ -68,6 +90,40 @@ Item {
                 playlist_bt.close()
                 console.log("Hide playlist ")
             }
+        }
+    }
+
+    // Hiển thị khi list music empty
+    Image {
+        id: imgDialog
+        visible: !mediaInfoControl.visible
+        source: "qrc:/App/Media/Image/Folder.png"
+
+        width: 256 *appScale
+        height: width
+        anchors.centerIn: parent
+
+        Text {
+            id: nameDialog
+            anchors.top: imgDialog.bottom
+            anchors.topMargin: 50 *appScale
+            text: "Open music folder"
+            font.pixelSize: 36*appScale
+            color: "white"
+        }
+
+        MouseArea {
+            anchors.fill: imgDialog
+            onClicked: {
+                openMediaFolder.open()
+            }
+        }
+    }
+    FolderDialog {
+        id: openMediaFolder
+        folder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
+        onAccepted: {
+            utility.setMusicDir(folder)
         }
     }
 }

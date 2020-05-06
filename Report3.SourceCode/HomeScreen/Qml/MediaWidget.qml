@@ -5,6 +5,14 @@ MouseArea {
     id: root
     implicitWidth: 635 *scaleRatio
     implicitHeight: 570 *scaleRatio
+    property string outlineColor: "gray"
+    function coverArt() {
+        if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
+            return myModel.data(myModel.index(playlistCurrentIndex,0), 260)
+        else
+            return "qrc:/Img/HomeScreen/cover_art.jpg"
+    }
+
     Rectangle {
         anchors{
             fill: parent
@@ -19,12 +27,8 @@ MouseArea {
         y:10 *scaleRatio
         width: 615 *scaleRatio
         height: 550 *scaleRatio
-        source: {
-            if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
-                return myModel.data(myModel.index(playlistCurrentIndex,0), 260)
-            else
-                return "qrc:/Img/HomeScreen/cover_art.jpg"
-        }
+
+        source: coverArt()
     }
     FastBlur {
         anchors.fill: bgBlur
@@ -44,6 +48,10 @@ MouseArea {
         text: "USB Music"
         color: "white"
         font.pixelSize: 34 *scaleRatio
+
+        // Add outline
+        // Một số album art có màu trùng với text => khó đọc
+        style: Text.Outline; styleColor: outlineColor
     }
     Image {
         id: bgInner
@@ -51,12 +59,7 @@ MouseArea {
         y:119 *scaleRatio
         width: 258 *scaleRatio
         height: 258 *scaleRatio
-        source: {
-            if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
-                return myModel.data(myModel.index(playlistCurrentIndex,0), 260)
-            else
-                return "qrc:/Img/HomeScreen/cover_art.jpg"
-        }
+        source: coverArt()
     }
     Image{
         x:201 *scaleRatio
@@ -75,9 +78,11 @@ MouseArea {
         text: {
             if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
                 return myModel.data(myModel.index(playlistCurrentIndex,0), 258)
+            else return ""
         }
         color: "white"
         font.pixelSize: 30 *scaleRatio
+        style: Text.Outline; styleColor: outlineColor
     }
     Text {
         id: txtTitle
@@ -90,9 +95,11 @@ MouseArea {
         text: {
             if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
                 return myModel.data(myModel.index(playlistCurrentIndex,0), 257)
+            else return "No media found"
         }
         color: "white"
         font.pixelSize: 48 *scaleRatio
+        style: Text.Outline; styleColor: outlineColor
     }
     Image{
         id: imgDuration
@@ -100,6 +107,9 @@ MouseArea {
         y: (56+343+55+62) *scaleRatio
         width: 511 *scaleRatio
         source: "qrc:/Img/HomeScreen/widget_media_pg_n.png"
+
+        // Chỉ hiển thị khi có bài hát được add vào danh sách
+        visible: myRowCount > 0
     }
     Image{
         id: imgPosition

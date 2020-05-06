@@ -14,7 +14,7 @@ Item {
     property string latitude: MyMap.getLatitude()
 
     width: screenWidth
-    height: screenHeight - (70 * appScale)
+    height: screenHeight - 104*appScale  // screenHeight - statusBar.height
 
     Item {
         id: startAnimation
@@ -57,7 +57,7 @@ Item {
         plugin: mapPlugin
         center: QtPositioning.coordinate(longitude, latitude)
 
-        zoomLevel: 14
+        zoomLevel: 16   //14
         copyrightsVisible: false
         Component.onCompleted: {
             map.addMapItem(marker)

@@ -5,8 +5,19 @@ import QtMultimedia 5.9
 
 Item {
     property var songTitle: audioTitle.text
+    property var musicCount: album_art_view.count
     width: parent.width
     height: parent.height
+
+    property var stateList: false
+    function getAudioTitle() {
+        if(musicCount >0 && stateList === false) return album_art_view.currentItem.myData.title
+        else return ""
+    }
+    function getAudioSinger() {
+        if(musicCount >0 && stateList === false) return album_art_view.currentItem.myData.singer
+        else return ""
+    }
 
     Text {
         id: audioTitle
@@ -14,7 +25,8 @@ Item {
         anchors.topMargin: 20 *appScale
         anchors.left: parent.left
         anchors.leftMargin: 20 *appScale
-        text: album_art_view.currentItem.myData.title
+        text: getAudioTitle()
+
         color: "white"
         font.pixelSize: 36 *appScale
         onTextChanged: {
@@ -26,7 +38,8 @@ Item {
         id: audioSinger
         anchors.top: audioTitle.bottom
         anchors.left: audioTitle.left
-        text: album_art_view.currentItem.myData.singer
+        text: getAudioSinger()
+
         color: "white"
         font.pixelSize: 32 *appScale
     }
@@ -45,7 +58,7 @@ Item {
         anchors.topMargin: 20 *appScale
         anchors.right: parent.right
         anchors.rightMargin: 20 *appScale
-        text: album_art_view.count
+        text: musicCount
         color: "white"
         font.pixelSize: 36 *appScale
     }
@@ -200,7 +213,11 @@ Item {
     SwitchButton {
         id: shuffer
         anchors.verticalCenter: play.verticalCenter
-        anchors.left: currentTime.left
+        anchors.right: progressBar.left
+
+        // Sau khi Scale, Item hiển thị nhỏ hơn, nhưng vẫn chiếm vị trí kích thước gốc
+        // Làm điều bên dưới để dịch chuyển Item 1 đoạn bằng với kích thước đã scale
+        anchors.rightMargin: (repeater.width *appScale - repeater.width)/2   //FIXME: Chú ý test khi scale = 1
         icon_off: "qrc:/App/Media/Image/shuffle.png"
         icon_on: "qrc:/App/Media/Image/shuffle-1.png"
         status: playlist.playbackMode === Playlist.Random ? 1 : 0
@@ -226,7 +243,6 @@ Item {
 
     ButtonControl {
         id: play
-//        anchors.verticalCenter: prev.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 35 *appScale  //FIXME: Chú ý kích thước
@@ -261,9 +277,8 @@ Item {
     SwitchButton {
         id: repeater
         anchors.verticalCenter: play.verticalCenter
-//        anchors.bottom: parent.bottom
-//        anchors.bottomMargin: 120 *appScale
-        anchors.right: totalTime.right
+        anchors.left: progressBar.right
+        anchors.leftMargin: (repeater.width *appScale - repeater.width)/2
         icon_on: "qrc:/App/Media/Image/repeat1_hold.png"
         icon_off: "qrc:/App/Media/Image/repeat.png"
         status: playlist.playbackMode === Playlist.Loop ? 1 : 0
@@ -281,6 +296,14 @@ Item {
         target: playlist
         onCurrentIndexChanged: {
             album_art_view.currentIndex = index;
+        }
+    }
+
+    Connections{
+        target: utility
+        onAddMediaChanged: {
+//            stateList = utility.stateAddList()  //stateList
+            stateList = utility.state
         }
     }
 }

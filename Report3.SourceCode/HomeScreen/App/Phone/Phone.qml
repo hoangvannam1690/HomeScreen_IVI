@@ -7,7 +7,8 @@ import "./"                // Button
 Item {
     id: root
     width: screenWidth
-    height: screenHeight - (70 * appScale)
+//    height: screenHeight - (70 * appScale)
+    height: screenHeight - 104*appScale  // screenHeight - statusBar.height
     focus: true
 
     property real screenWidth: screenSize.getAppWidth()

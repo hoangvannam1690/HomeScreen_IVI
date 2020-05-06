@@ -42,7 +42,6 @@ ApplicationWindow {
     // ----------------- Status Area ---------------------
     StatusBar {
         id: statusBar
-        scaleRatioStatusBar: scaleRatio
         onBntBackClicked: {
             stackView.pop()
             if(focusPosition === "AppMenu") applicationMenu.forceActiveFocus()

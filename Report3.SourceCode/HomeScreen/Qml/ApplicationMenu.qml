@@ -12,6 +12,7 @@ ListView {
     width: 1920 *scaleRatio
     height: 526 *scaleRatio
 
+    snapMode: ListView.SnapOneItem  // ListView.SnapToItem
     // Cần enable key Navigation, nếu giá trị false, không thể Navigation
     keyNavigationEnabled: true
 

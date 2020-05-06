@@ -219,5 +219,7 @@
         <file>App/Setting/SetVehicle.qml</file>
         <file>App/Setting/SetDateTime.qml</file>
         <file>App/Setting/SetLanguage.qml</file>
+        <file>App/Media/Image/Folder.png</file>
+        <file>App/Media/Image/Folder2.png</file>
     </qresource>
 </RCC>

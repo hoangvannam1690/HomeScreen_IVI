@@ -9,7 +9,7 @@ Item {
     property real appScale: screenSize.getScaleRatio()
 
     width: screenWidth
-    height: 141 *appScale
+    height: 100 *appScale
 
     Image {
         id: headerItem
@@ -20,7 +20,7 @@ Item {
             text: appName
             anchors.centerIn: parent
             color: "white"
-            font.pixelSize: 46 * appScale
+            font.pixelSize: 42 * appScale   //46 * appScale
         }
     }
 }

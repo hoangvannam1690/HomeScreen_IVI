@@ -25,16 +25,30 @@ int main(int argc, char *argv[]) {
 
   QQmlApplicationEngine engine;
 
+  // Khởi tạo - đọc danh sách app
   ApplicationsModel appsModel;
   QString xmlPath = "applications.xml";
   XmlReader xmlReader(xmlPath, appsModel);
-
   engine.rootContext()->setContextProperty("appsModel", &appsModel);
 
+  // Lưu trữ thứ tự khi đổi chỗ app
   QQmlContext *context = engine.rootContext();
   xmlwriter xmlwriter;
   context->setContextProperty("xmlwriter", &xmlwriter);
 
+  // Chứa thông tin kích thước màn hình
+  ScreenSize screenSize;
+  engine.rootContext()->setContextProperty("screenSize", &screenSize);
+
+  // Chứa thông tin vị trí map
+  MyMap myMap;
+  engine.rootContext()->setContextProperty("MyMap", &myMap);
+
+  // Chứa thông tin Climate, Giao tiếp D-Bus
+  ClimateModel climate;
+  engine.rootContext()->setContextProperty("climateModel", &climate);
+
+  // Chứa thông tin Media player
   Player player;
   engine.rootContext()->setContextProperty("myModel", player.m_playlistModel);
   engine.rootContext()->setContextProperty("myRowCount",
@@ -44,17 +58,6 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("playlistCurrentIndex",
                                            player.m_playlist->currentIndex());
   engine.rootContext()->setContextProperty("utility", &player);
-
-  ClimateModel climate;
-  engine.rootContext()->setContextProperty("climateModel", &climate);
-
-  // Chứa thông tin vị trí map
-  MyMap myMap;
-  engine.rootContext()->setContextProperty("MyMap", &myMap);
-
-
-  ScreenSize screenSize;
-  engine.rootContext()->setContextProperty("screenSize", &screenSize);
 
 
   const QUrl url(QStringLiteral("qrc:/Qml/main.qml"));

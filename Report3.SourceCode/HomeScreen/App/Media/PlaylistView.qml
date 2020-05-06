@@ -12,13 +12,15 @@ Drawer {
         id: playList_bg
         anchors.fill: parent
         color: "transparent"
-    }
+    }        
+
     ListView {
         id: mediaPlaylist
         anchors.fill: parent
         model: myModel
         clip: true
         spacing: 2 *appScale
+        snapMode: ListView.SnapPosition
 
         focus: true
         highlightMoveDuration: 100
@@ -87,6 +89,7 @@ Drawer {
         }
 
         highlight: Image {
+            id: imgHighlight
             source: "qrc:/App/Media/Image/playlist_item.png"
             Image {
                 anchors.left: parent.left
@@ -97,6 +100,7 @@ Drawer {
                 source: "qrc:/App/Media/Image/playing.png"
             }
         }
+
         ScrollBar.vertical: ScrollBar {
             parent: mediaPlaylist.parent
             anchors.top: mediaPlaylist.top

@@ -17,7 +17,7 @@ Item {
     property real appScale: screenSize.getScaleRatio()
 
     width: screenWidth
-    height: screenHeight - (70 * appScale)
+    height: screenHeight - 104*appScale  // screenHeight - statusBar.height
 
     XAnimator{
         target: root
