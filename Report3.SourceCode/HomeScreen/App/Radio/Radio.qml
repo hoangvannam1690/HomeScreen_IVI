@@ -50,6 +50,38 @@ Item {
 
     }
 
+
+
+    ListView {
+        id: radioListChannel
+//        orientation: ListView.Vertical
+        interactive: true
+        spacing: 5  *scaleRatio
+        clip: true
+        highlightMoveDuration: 100
+        width: 1920 *scaleRatio
+        height: 526 *scaleRatio
+
+//        snapMode: ListView.SnapToItem
+        keyNavigationEnabled: true
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Audio {
         id: radio
         source: "https://5a6872aace0ce.streamlock.net/nghevovgthcm/vovgthcm.stream_aac/playlist.m3u8" //VOV Giao Thông HCM

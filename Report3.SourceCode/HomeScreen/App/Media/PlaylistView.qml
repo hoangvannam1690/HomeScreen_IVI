@@ -32,8 +32,10 @@ Drawer {
             implicitHeight: playlistItem.height
             Image {
                 id: playlistItem
-                width: 675 *appScale
-                height: 193 *appScale
+//                width: 675 *appScale
+//                height: 193 *appScale
+                width: 675*appScale
+                height: 120*appScale
                 source: "qrc:/App/Media/Image/playlist.png"
                 opacity: 0.5
             }
@@ -78,13 +80,14 @@ Drawer {
 
             // --------------------- Mouse control ------------------------
             onClicked: {
-                player.playlist.currentIndex = index
+//                player.playlist.currentIndex = index
             }
             onPressed: {
-                playlistItem.source = "qrc:/App/Media/Image/hold.png"
+//                playlistItem.source = "qrc:/App/Media/Image/hold.png"
+                player.playlist.currentIndex = index
             }
             onReleased: {
-                playlistItem.source = "qrc:/App/Media/Image/playlist.png"
+//                playlistItem.source = "qrc:/App/Media/Image/playlist.png"
             }
         }
 
