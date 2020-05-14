@@ -29,7 +29,8 @@ Item {
             height: 570
             color: "transparent"
             anchors.centerIn: parent
-            scale: 1.5 * appScale
+            scale: 1.2 * appScale //FIXME: Cần xem lại giá trị này
+//            scale: appScale
 
             //Driver
             Text {

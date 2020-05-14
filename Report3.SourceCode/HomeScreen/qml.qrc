@@ -221,5 +221,23 @@
         <file>App/Setting/SetLanguage.qml</file>
         <file>App/Media/Image/Folder.png</file>
         <file>App/Media/Image/Folder2.png</file>
+        <file>App/Radio/Data/icon_48.png</file>
+        <file>App/Radio/Data/radio_bg.png</file>
+        <file>App/Radio/Data/radio_bg0.png</file>
+        <file>App/Radio/RadioButton.qml</file>
+        <file>App/Radio/Data/Next_n.png</file>
+        <file>App/Radio/Data/Pause_n.png</file>
+        <file>App/Radio/Data/Play_n.png</file>
+        <file>App/Radio/Data/Prev_n.png</file>
+        <file>App/Radio/Data/Rescan_n.png</file>
+        <file>App/Radio/Data/VolDown_n.png</file>
+        <file>App/Radio/Data/VolUp_n.png</file>
+        <file>App/Radio/Data/Next_p.png</file>
+        <file>App/Radio/Data/Prev_p.png</file>
+        <file>App/Radio/Data/Speak_1.png</file>
+        <file>App/Radio/Data/Speak_2.png</file>
+        <file>App/Radio/Data/Speak_3.png</file>
+        <file>App/Radio/Data/Speak_4.png</file>
+        <file>App/Radio/Data/Speak_5.png</file>
     </qresource>
 </RCC>

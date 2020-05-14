@@ -8,7 +8,7 @@ MouseArea {
     property string icon
     property string title
 
-//    preventStealing: false  //  true: không flick listview được
+    preventStealing: false  //  true: không flick listview được
 
     Rectangle {
         id: idBackgroud

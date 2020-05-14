@@ -136,6 +136,7 @@ Item {
 
                         settingMenuBlur.start()
                         popupWindow.open()
+                        console.log("aaaa.... " + settingMenu.cellWidth)
                     }
                 }
 

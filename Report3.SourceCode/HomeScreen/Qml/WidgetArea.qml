@@ -7,6 +7,7 @@ ListView {
     id: lvWidget
     implicitWidth: 1920 * scaleRatio
     implicitHeight: 570 * scaleRatio
+
     interactive: false
     focus: true
 

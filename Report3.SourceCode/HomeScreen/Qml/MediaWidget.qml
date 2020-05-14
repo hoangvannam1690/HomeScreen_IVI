@@ -182,5 +182,13 @@ MouseArea {
         onPositionChanged: {
             imgPosition.width = (player.position / player.duration)*(511)  *scaleRatio;
         }
+    }        
+
+    Connections{
+        target: window
+        onSendSignalScale: {
+            imgDuration.width = 511  *scaleRatio
+            imgPosition.width = (player.position / player.duration)*(511)  *scaleRatio;
+        }
     }
 }

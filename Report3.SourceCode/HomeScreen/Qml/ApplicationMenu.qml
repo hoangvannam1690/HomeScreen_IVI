@@ -62,16 +62,6 @@ ListView {
             }
 
             Keys.onPressed: {
-                // Khi nhấn Up/Down thì chuyển focus lên Widget, do đó bỏ focus tại app list
-//                 app.focus = true
-// FIXME: tesss.........
-                //=================================================================================
-                if (event.key === Qt.Key_5) {
-                    focusPosition = "Widget"
-                    app.state = "Normal"
-                }
-                //=================================================================================
-
                 if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) {
                     widgetArea.forceActiveFocus()
                     focusPosition = "Widget"

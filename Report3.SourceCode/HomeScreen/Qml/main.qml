@@ -10,23 +10,72 @@ import QtQuick.Controls 2.4
 ApplicationWindow {
     id: window
     visible: true
-    // Screen standar: 1920x1200 => 1152x720 => 1024x640  W/H = 1.6  0.625
+    // Screen standar: 1920x1200 => 1152x720 => 1024x640 => 768x480 W/H = 1.6  0.625
     // Default screen: 1920x1200
     // get screen size
-    property var csreenWidth : Screen.width  >= 1920 ? 1920 : 1152
-    property var csreenHeight: Screen.height >= 1200 ? 1200 : 720
-    property var scaleRatio: Screen.height >= 1200 ? 1 : 0.6
+//    property var screenWidth : Screen.width  >= 1920 ? 1920 : 1152
+//    property var csreenHeight: Screen.height >= 1200 ? 1200 : 720
+//    property var scaleRatio: Screen.height >= 1200 ? 1 : 0.6
 
-    width: csreenWidth; height: csreenHeight
+    //-------------------------------------------------------------
+    property var screenWidth : getWidth()
+    property var csreenHeight: getHeight()
+    property var scaleRatio: getScale()
+    function getWidth() {
+        if(Screen.width  >= 1920) return 1920
+        else if(Screen.width  >= 1366) return 1152
+        else return 720
+    }
+    function getHeight() {
+        if(getWidth() === 1920) return 1200
+        else if(getWidth() === 1152) return 720
+        else return 480
+    }
+    function getScale() {
+        if(getWidth() === 1920) return 1
+        else if(getWidth() === 1152) return 0.6
+        else return 0.375
+    }
+
+    // signal
+    signal sendSignalScale(var msg)
+    //-------------------------------------------------------------
+
+
+    width: screenWidth; height: csreenHeight
 
     // Không cho kéo thay đổi kích thước
-    maximumWidth: window.width
-    maximumHeight: window.height
-    minimumHeight: maximumHeight
-    minimumWidth: maximumWidth
+    minimumWidth: getWidth()
+    minimumHeight: getHeight()
+    maximumWidth: minimumWidth +1
+    maximumHeight: minimumHeight+1
 
     Component.onCompleted: {
         screenSize.setScreenSize(window.width, window.height, scaleRatio)
+        console.log("width: " + window.width + "; height: " + window.height + "; Scale: " +scaleRatio)
+    }
+
+    onScreenChanged: {
+        timer.restart()
+    }
+
+    Timer {
+        id: timer
+        running: true
+        repeat: false
+        interval: 150 //10
+        onTriggered: {
+            screenWidth = getWidth()
+            csreenHeight= getHeight()
+            scaleRatio  = getScale()
+
+            window.width = getWidth()
+            window.height = getHeight()
+            console.log("width: " + window.width + "; height: " + window.height + "; Scale: " +scaleRatio)
+            screenSize.setScreenSize(window.width, window.height, scaleRatio)
+
+            sendSignalScale(scaleRatio)
+        }
     }
 
     Image {

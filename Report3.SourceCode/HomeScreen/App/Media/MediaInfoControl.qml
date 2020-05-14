@@ -208,8 +208,21 @@ Item {
     }
 
     // Media control area
-    // Sử dụng Play làm mốc cho các button khác
-    // Lý do: button play đặt horizontalCenter
+    // Toàn bộ button được căn theo khung này
+    // Button Play là trung tâm: căn theo cả verticalCenter và horizontalCenter
+    // Các button khác dựa vào tọa độ của Play
+    Rectangle {
+        id: ctrlArea
+        anchors {
+            top: progressBar.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        color: "transparent" //"orange"
+        opacity: 0.2
+    }
+
     SwitchButton {
         id: shuffer
         anchors.verticalCenter: play.verticalCenter
@@ -217,7 +230,7 @@ Item {
 
         // Sau khi Scale, Item hiển thị nhỏ hơn, nhưng vẫn chiếm vị trí kích thước gốc
         // Làm điều bên dưới để dịch chuyển Item 1 đoạn bằng với kích thước đã scale
-        anchors.rightMargin: (repeater.width *appScale - repeater.width)/2   //FIXME: Chú ý test khi scale = 1
+        anchors.rightMargin: (repeater.width *appScale - repeater.width)/2
         icon_off: "qrc:/App/Media/Image/shuffle.png"
         icon_on: "qrc:/App/Media/Image/shuffle-1.png"
         status: playlist.playbackMode === Playlist.Random ? 1 : 0
@@ -228,7 +241,7 @@ Item {
                 playlist.playbackMode = Playlist.Random
             }
         }
-    }
+    }    
     ButtonControl {
         id: prev
         anchors.verticalCenter: play.verticalCenter
@@ -240,12 +253,11 @@ Item {
             player.playlist.previous()
         }
     }
-
     ButtonControl {
         id: play
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 35 *appScale  //FIXME: Chú ý kích thước
+        anchors.verticalCenter: ctrlArea.verticalCenter
+
         icon_default: player.state == MediaPlayer.PlayingState ?  "qrc:/App/Media/Image/pause.png" : "qrc:/App/Media/Image/play.png"
         icon_pressed: player.state == MediaPlayer.PlayingState ?  "qrc:/App/Media/Image/hold-pause.png" : "qrc:/App/Media/Image/hold-play.png"
         icon_released: player.state== MediaPlayer.PlayingState ?  "qrc:/App/Media/Image/pause.png" : "qrc:/App/Media/Image/play.png"
