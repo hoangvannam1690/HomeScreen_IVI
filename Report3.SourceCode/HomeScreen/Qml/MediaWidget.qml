@@ -5,7 +5,7 @@ MouseArea {
     id: root
     implicitWidth: 635 *scaleRatio
     implicitHeight: 570 *scaleRatio
-    property string outlineColor: "gray"
+    property string outlineColor: "#454545"      //"gray"
     function coverArt() {
         if (myRowCount > 0 && myRowCount >  playlistCurrentIndex)
             return myModel.data(myModel.index(playlistCurrentIndex,0), 260)

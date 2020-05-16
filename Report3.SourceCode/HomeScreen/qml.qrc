@@ -239,5 +239,11 @@
         <file>App/Radio/Data/Speak_3.png</file>
         <file>App/Radio/Data/Speak_4.png</file>
         <file>App/Radio/Data/Speak_5.png</file>
+        <file>App/Radio/Data/Next_n.svg</file>
+        <file>App/Radio/Data/Next_p.svg</file>
+        <file>App/Radio/Data/Pause_n.svg</file>
+        <file>App/Radio/Data/Play_n.svg</file>
+        <file>Img/StatusBar/indi_audio_on.png</file>
+        <file>Img/StatusBar/indi_battery_06.png</file>
     </qresource>
 </RCC>

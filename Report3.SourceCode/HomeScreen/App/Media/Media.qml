@@ -28,7 +28,7 @@ Item {
     AppHeader{
         id: headerItem
         width: root.width
-        height: 100 *appScale   //141 *appScale
+        height: 100 *appScale
 
         playlistButtonStatus: playlist_bt.opened ? 1 : 0
         onClickPlaylistButton: {
@@ -62,7 +62,7 @@ Item {
         id: playlist_bt
         y: headerItem.height + 104*appScale
         width: 675  *appScale
-        height: parent.height-headerItem.height
+        height: root.height - headerItem.height
     }
 
     //Media Info

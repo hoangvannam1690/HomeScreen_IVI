@@ -10,7 +10,7 @@ import "./../Common/"
 import "./../Phone/"    //MyButton.qml
 
 Item {
-    id: root
+    id: root    
     property real screenWidth: screenSize.getAppWidth()
     property real screenHeight: screenSize.getAppHeight()
     property real appScale: screenSize.getScaleRatio()
@@ -64,7 +64,7 @@ Item {
         ListElement { name: "VOH 95.6"; url: "http://125.212.213.71:1935/live/channel1/playlist.m3u8"}
         ListElement { name: "VOH AM.610"; url: "http://125.212.213.71:1935/live/channel2/playlist.m3u8"}
         ListElement { name: "VOH 99.9"; url: "http://125.212.213.71:1935/live/channel3/playlist.m3u8"}
-        // ListElement { name: "XONE FM"; url: "http://node-29.zeno.fm/v51ym0g96qruv"}   // FIXME: channel này load bị treo?
+        // ListElement { name: "XONE FM"; url: "http://node-29.zeno.fm/v51ym0g96qruv"}   // WARNING: channel này load bị treo?
         ListElement { name: "JOY FM"; url: "http://cdn.mediatech.vn/hntvRadio/joyfm.stream_aac/playlist.m3u8"}
         ListElement { name: "Bình Dương 92.5"; url: "https://hplusliveall.e96bbe18.sabai.vn/570448cae6e420d5057ba249a3d1b6c31588823059/btvfm92.audio.sbd.tms/chunklist.m3u8"}
     }
@@ -103,6 +103,7 @@ Item {
                     radio.source = url
                     radio.play()
                     console.log(url)
+                    isPlay = true
                 }
             }
         }
@@ -120,14 +121,13 @@ Item {
 
     PathView {
         parent: radioListArea
-        Keys.onRightPressed: if (!moving) { incrementCurrentIndex(); console.log(moving) }
-        Keys.onLeftPressed: if (!moving) decrementCurrentIndex()
+
         id: view
-        anchors.fill: parent     //radioListArea
+        anchors.fill: parent
         highlight: appHighlight
         preferredHighlightBegin: 0.5
         preferredHighlightEnd: 0.5
-        focus: true
+//        focus: true
         model: radioListModel
         delegate: appDelegate
 
@@ -139,6 +139,10 @@ Item {
                 // isPlay = true
             }
         }
+
+        //======================
+        KeyNavigation.left: btnPlay
+        KeyNavigation.right: btnRescan
 
         pathItemCount: 5
         path: Path {
@@ -172,10 +176,28 @@ Item {
     // Next
     MouseArea {
         id: btnNext
+        focus: true
         width: 620 *appScale
         height: 340 *appScale
         anchors.top: headerItem.bottom
         anchors.left: radio_bg.left
+
+        //===============================
+        KeyNavigation.up: btnPre
+        KeyNavigation.down: btnPlay
+        KeyNavigation.right: btnVolUp
+        //===============================
+        Keys.onPressed: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                nextImg.source = "qrc:/App/Radio/Data/Next_p.png"
+                nextImg.scale = 0.9
+                view.decrementCurrentIndex()
+            }
+        }
+        Keys.onReleased: {
+            nextImg.source = "qrc:/App/Radio/Data/Next_n.png"
+            nextImg.scale = 1
+        }
 
         Image {
             id: nextImg
@@ -190,7 +212,7 @@ Item {
         onReleased: {
             nextImg.source = "qrc:/App/Radio/Data/Next_n.png"
             nextImg.scale = 1
-            view.incrementCurrentIndex()
+            view.decrementCurrentIndex()
         }
     }
 
@@ -198,13 +220,50 @@ Item {
     // Khi play sẽ hiển thị nút pause
     // khi dừng thì sẽ hiển thị nút play
     // Khởi tạo state ban đầu là false: nút play sẽ hiển thị
+
+
+    // Trả lại true nếu mouse nằm trong hình ảnh (phần hiển thị, không phải Rectangle)
+    // False nếu mouse nằm ngoài
+    // Mục đích: tránh bị chồng nhau ở đường viền chéo
+    /* FIXME: chưa làm được?
+    property bool m_btnPlay: {
+            var x1 = width / 2;
+            var y1 = height / 2;
+            var x2 = mouseX;
+            var y2 = mouseY;
+            var distanceFromCenter = Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2);
+            var radiusSquared = Math.pow(Math.min(width, height) / 2, 2);
+            var isWithinOurRadius = distanceFromCenter < radiusSquared;
+            return isWithinOurRadius;
+        }
+ */
+
+
+    //======================================================
     property bool isPlay: false
     MouseArea {
         id: btnPlay
         width: 474 *appScale
         height: 415 *appScale
+
         anchors.verticalCenter: radio_bg.verticalCenter
         anchors.left: radio_bg.left
+
+        KeyNavigation.down: btnPre
+        KeyNavigation.right: btnRescan
+
+        Keys.onPressed: {
+            if(event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
+                playImg.scale = 0.9
+            }
+        }
+        Keys.onReleased: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                playImg.scale = 1
+                isPlay = !isPlay
+                isPlay ? radio.play() : radio.pause()
+            }
+        }        
 
         Image {
             id: playImg
@@ -230,6 +289,23 @@ Item {
         anchors.bottom: radio_bg.bottom
         anchors.left: radio_bg.left
 
+        KeyNavigation.right: btnVolDown
+        KeyNavigation.down: btnNext
+
+        Keys.onPressed: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                preImg.scale = 0.9
+                preImg.source = "qrc:/App/Radio/Data/Prev_p.png"
+            }
+        }
+        Keys.onReleased: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                preImg.scale = 1
+                preImg.source = "qrc:/App/Radio/Data/Prev_n.png"
+                view.incrementCurrentIndex()
+            }
+        }
+
         Image {
             id: preImg
             source: "qrc:/App/Radio/Data/Prev_n.png"
@@ -243,7 +319,7 @@ Item {
         onReleased: {
             preImg.scale = 1
             preImg.source = "qrc:/App/Radio/Data/Prev_n.png"
-            view.decrementCurrentIndex()
+            view.incrementCurrentIndex()
         }
     }
 
@@ -255,6 +331,25 @@ Item {
         height: 340 *appScale
         anchors.top: headerItem.bottom
         anchors.right:  radio_bg.right
+
+//        KeyNavigation.left: btnNext
+        KeyNavigation.down: btnRescan
+
+        Keys.onPressed: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                btnVolUp.scale = 0.9
+                if(radio.volume < 1) radio.volume += 0.2
+                else radio.volume = 1.0
+                popVolume.open()
+                radioListArea.opacity = 0.25
+                timerVolume.restart()
+            }
+        }
+        Keys.onReleased: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                btnVolUp.scale = 1
+            }
+        }
 
         Image {
             id: volUpImg
@@ -273,12 +368,6 @@ Item {
         }
         onReleased: {
             btnVolUp.scale = 1
-//            if(radio.volume < 1) radio.volume += 0.2
-//            else radio.volume = 1.0
-
-//            popVolume.open()
-//            radioListArea.opacity = 0.25
-//            timerVolume.restart()
         }
     }
 
@@ -289,6 +378,25 @@ Item {
         height: 415 *appScale
         anchors.verticalCenter: radio_bg.verticalCenter
         anchors.right:  radio_bg.right
+
+//        KeyNavigation.up: btnVolUp
+        KeyNavigation.down: btnVolDown
+        KeyNavigation.left: btnPlay
+
+        Keys.onPressed: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                reScanImg.scale = 0.9
+                console.log("No new channel found")
+                radioListArea.opacity = 0.25
+                popNotification.open()
+                timeNotify.restart()
+            }
+        }
+        Keys.onReleased: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                reScanImg.scale = 1
+            }
+        }
 
         Image {
             id: reScanImg
@@ -327,7 +435,6 @@ Item {
         }
     }
 
-
     //FIXME: Khi 2 timer chạy liên tiếp: 1 trong 2 timer kết thúc,
     // opacity = 1, trong khi Popup còn lại vẫn đang show => lỗi hiển thị
     Timer{
@@ -348,6 +455,26 @@ Item {
         height: 340 *appScale
         anchors.bottom: radio_bg.bottom
         anchors.right:  radio_bg.right
+
+        KeyNavigation.up: btnRescan
+        KeyNavigation.left: btnPre
+
+        Keys.onPressed: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                volDownImg.scale = 0.9
+                if(radio.volume > 0) radio.volume -= 0.2
+                else radio.volume = 0.0
+                popVolume.open()
+                radioListArea.opacity = 0.25
+                timerVolume.restart()
+            }
+        }
+        Keys.onReleased: {
+            if((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) && !event.isAutoRepeat) {
+                volDownImg.scale = 1
+            }
+        }
+
         Image {
             id: volDownImg
             source: "qrc:/App/Radio/Data/VolDown_n.png"
@@ -412,20 +539,14 @@ Item {
         else return vol_img_path + "1.png"
     }
 
+    KeyNavigation.up: btnPre
+    KeyNavigation.down: btnNext
+    KeyNavigation.left: btnPlay
+    KeyNavigation.right: btnPlay
 
-
-
-
-
-
-//    // Xử lý hardkey
-//    Keys.onPressed: {
-//        if(event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
-//            player.pause()
-//            radio.playbackState === MediaPlayer.PlayingState ? radio.stop() : radio.play()
-//            console.log("Play/Stop radio.")
-//        }
-//    }
+    Component.onCompleted: {
+        btnNext.forceActiveFocus()
+    }
 
     Component.onDestruction:  {
         console.log("exit radio....")
