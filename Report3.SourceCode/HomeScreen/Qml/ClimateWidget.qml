@@ -71,7 +71,7 @@ MouseArea {
         x: 43 *scaleRatio
         y: (248 + 107) *scaleRatio
         width: 184 *scaleRatio
-        text: "°C"
+        text: "18.5°C"
         color: "white"
         font.pixelSize: 46 *scaleRatio
         horizontalAlignment: Text.AlignHCenter
@@ -121,7 +121,7 @@ MouseArea {
         x: (43+184+182) *scaleRatio
         y: (248 + 107) *scaleRatio
         width: 184 *scaleRatio
-        text: "°C"
+        text: "22°C"
         color: "white"
         font.pixelSize: 46 *scaleRatio
         horizontalAlignment: Text.AlignHCenter

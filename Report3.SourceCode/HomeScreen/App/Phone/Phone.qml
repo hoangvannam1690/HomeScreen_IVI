@@ -43,7 +43,7 @@ Item {
             id: numberDisplay
             width: 600* appScale
             height: 120* appScale
-            y: 100 *appScale
+            y: 200 *appScale    // 100 *appScale
             anchors.horizontalCenter: parent.horizontalCenter
 
             horizontalAlignment: Text.AlignRight

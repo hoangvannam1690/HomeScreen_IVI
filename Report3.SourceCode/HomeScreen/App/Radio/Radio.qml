@@ -114,7 +114,7 @@ Item {
         Rectangle {
             width: radioListArea.width
             height: 80
-            color: "lightsteelblue"     //"transparent"  //"lightsteelblue"
+            color: "lightsteelblue"     //"transparent"
             opacity: 0.2
         }
     }
@@ -546,6 +546,8 @@ Item {
 
     Component.onCompleted: {
         btnNext.forceActiveFocus()
+        radio.volume = 0.6  // Khởi tạo volume 0.6/1.0
+        player.stop()
     }
 
     Component.onDestruction:  {

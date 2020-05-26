@@ -60,12 +60,13 @@ DISTFILES +=
 # Icon application
 RC_FILE = appIcon.rc
 
-## kit: MinGW 64bit
+### kit: MinGW 64bit
 win32: {
-    LIBS += -L$$PWD/taglib11/bin/ -ltag
+    LIBS += -L$$PWD/mTaglib/bin/ -ltag
 }
 else:unix: {
-    LIBS += -L$$PWD/taglib11/lib/ -ltag
+    LIBS += -L$$PWD/mTaglib/lib/ -ltag
 }
-INCLUDEPATH += $$PWD/taglib11/include
-DEPENDPATH += $$PWD/taglib11/include
+INCLUDEPATH += $$PWD/mTaglib/include
+DEPENDPATH += $$PWD/mTaglib/include
+

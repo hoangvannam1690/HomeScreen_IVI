@@ -83,7 +83,7 @@ Item {
 
     Image {
         id: wifiArea
-        source: "qrc:/Img/StatusBar/indi_wifi_04.png"
+        source: "qrc:/Img/StatusBar/indi_wifi_03.png"
         anchors.right: lteArea.left
         anchors.rightMargin: 30 *scaleRatio
         anchors.verticalCenter:  parent.verticalCenter

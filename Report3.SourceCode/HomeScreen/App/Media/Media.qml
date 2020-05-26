@@ -71,7 +71,7 @@ Item {
         anchors.top: headerItem.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        anchors.leftMargin: playlist_bt.position*playlist_bt.width    //FIXME: chỗ này tác dụng gì??
+        anchors.leftMargin: playlist_bt.position*playlist_bt.width
         anchors.bottom: parent.bottom
 
         width: root.width - playlist_bt.width

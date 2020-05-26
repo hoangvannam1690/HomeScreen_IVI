@@ -245,5 +245,23 @@
         <file>App/Radio/Data/Play_n.svg</file>
         <file>Img/StatusBar/indi_audio_on.png</file>
         <file>Img/StatusBar/indi_battery_06.png</file>
+        <file>App/Climate/Image/Climate_00.png</file>
+        <file>App/Climate/Image/Climate_02_b.png</file>
+        <file>App/Climate/Image/Climate_02_gr.png</file>
+        <file>App/Climate/Image/Climate_02_o.png</file>
+        <file>App/Climate/Image/Climate_02_w.png</file>
+        <file>App/Climate/Image/Climate_03_b.png</file>
+        <file>App/Climate/Image/Climate_03_gr.png</file>
+        <file>App/Climate/Image/Climate_03_o.png</file>
+        <file>App/Climate/Image/Climate_03_w.png</file>
+        <file>App/Climate/Image/Climate_bg.png</file>
+        <file>App/Climate/Image/ico_air_co2.png</file>
+        <file>App/Climate/Image/ico_asd_l.png</file>
+        <file>App/Climate/Image/ico_wind_level.png</file>
+        <file>App/Climate/Image/Climate_bg_n_b.png</file>
+        <file>App/Climate/Image/Climate_bg_n_g.png</file>
+        <file>App/Climate/WindDirection.qml</file>
+        <file>App/Climate/Image/heating_00.png</file>
+        <file>App/Climate/Image/heating_01.png</file>
     </qresource>
 </RCC>
