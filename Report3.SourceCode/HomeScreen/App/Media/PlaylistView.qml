@@ -114,6 +114,7 @@ Drawer {
         target: playlist     //player.playlist
         onCurrentIndexChanged: {
             mediaPlaylist.currentIndex = index;
+
         }
     }
 }

@@ -170,8 +170,8 @@ Item {
         // AC
         Item {
             id: acArea
-            width: 192 *appScale
-            height: width
+            width: 350 *appScale
+            height: 192 *appScale
             anchors.bottom: parent.bottom
             anchors.left: parent.left
 
@@ -180,7 +180,7 @@ Item {
             Rectangle {
                 id: backgroundAC
                 anchors.fill: parent
-                color: "pink"
+                color: "transparent"  //"pink"
                 opacity: 0.25
             }
 
@@ -190,7 +190,6 @@ Item {
                 text: "AC OFF"
                 font.pixelSize: 48
                 color: "white"
-//                anchors.verticalCenter: Text.verticalAlignment
                 x: 35
             }
 
@@ -228,13 +227,23 @@ Item {
                 height: width
                 anchors.centerIn: parent
             }
+
+            Image {
+                id: fan_level
+                source: "qrc:/App/Climate/Image/Temp.png"
+                width: 680 *appScale
+                height: 348 *appScale
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+
+            }
         }
 
         // SYNC
         Item {
             id: syncArea
-            width: 192 *appScale
-            height: width
+            width: 350 *appScale
+            height: 192 *appScale
             anchors.bottom: parent.bottom
             anchors.right: parent.right
 

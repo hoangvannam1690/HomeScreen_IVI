@@ -3,7 +3,7 @@ QT += quick multimedia dbus xml core  network positioning location   #quickcontr
 #QT += qml quick network positioning location
 
 CONFIG += c++11
-CONFIG+=qml_debug
+CONFIG -=qml_debug
 
 DBUS_INTERFACES += Dbus/climate.xml
 # The following define makes your compiler emit warnings if you use
@@ -69,4 +69,5 @@ else:unix: {
 }
 INCLUDEPATH += $$PWD/mTaglib/include
 DEPENDPATH += $$PWD/mTaglib/include
+
 

@@ -13,6 +13,7 @@
 #include "xmlwriter.h"
 #include "screensize.h"
 
+
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
   QGuiApplication::setOrganizationDomain("OrganizationDomain.com");
   QGuiApplication::setApplicationName("HomeScreen");
 
-  QQmlApplicationEngine engine;
+  QQmlApplicationEngine engine;  
 
   // Khởi tạo - đọc danh sách app
   ApplicationsModel appsModel;
@@ -43,6 +44,7 @@ int main(int argc, char *argv[]) {
   // Chứa thông tin vị trí map
   MyMap myMap;
   engine.rootContext()->setContextProperty("MyMap", &myMap);
+
 
   // Chứa thông tin Climate, Giao tiếp D-Bus
   ClimateModel climate;

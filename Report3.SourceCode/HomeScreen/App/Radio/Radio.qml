@@ -64,9 +64,11 @@ Item {
         ListElement { name: "VOH 95.6"; url: "http://125.212.213.71:1935/live/channel1/playlist.m3u8"}
         ListElement { name: "VOH AM.610"; url: "http://125.212.213.71:1935/live/channel2/playlist.m3u8"}
         ListElement { name: "VOH 99.9"; url: "http://125.212.213.71:1935/live/channel3/playlist.m3u8"}
-        // ListElement { name: "XONE FM"; url: "http://node-29.zeno.fm/v51ym0g96qruv"}   // WARNING: channel này load bị treo?
         ListElement { name: "JOY FM"; url: "http://cdn.mediatech.vn/hntvRadio/joyfm.stream_aac/playlist.m3u8"}
-        ListElement { name: "Bình Dương 92.5"; url: "https://hplusliveall.e96bbe18.sabai.vn/570448cae6e420d5057ba249a3d1b6c31588823059/btvfm92.audio.sbd.tms/chunklist.m3u8"}
+        ListElement { name: "Bình Dương 92.5"; url: "https://hplusliveall.e96bbe18.sabai.vn/ac62f6e3f138fffcadaabe56ce92d0bf1593712386/btvfm92.audio.sbd.tms/chunklist.m3u8"}
+        ListElement { name: "Bình Phước"; url: "http://118.69.197.145/hls/radio.m3u8" }
+        ListElement { name: "FM 90"; url: "http://media.mediatech.vn:1935/hntvRadio/fm90live/chunklist_w1541529076.m3u8" }
+//        ListElement { name: "Bình Phước"; url: "http://118.69.197.145/hls/radio.m3u8" }
     }
 
     //==========================================================================
@@ -332,7 +334,6 @@ Item {
         anchors.top: headerItem.bottom
         anchors.right:  radio_bg.right
 
-//        KeyNavigation.left: btnNext
         KeyNavigation.down: btnRescan
 
         Keys.onPressed: {
@@ -525,7 +526,7 @@ Item {
 
 
     // Trả về hình ảnh tương ứng với mức volume hiện tại
-    // Có 5 mức tương ứng 5 image
+    // Có 6 mức (từ 0 -> 5) tương ứng 6 image
     property string vol_img_path: "qrc:/App/Radio/Data/Speak_"
     function vol_level() {
         if(radio.volume == 1.0)
@@ -536,7 +537,9 @@ Item {
             return vol_img_path + "3.png"
         else if(radio.volume < 0.6 && radio.volume >= 0.4)
             return vol_img_path + "2.png"
-        else return vol_img_path + "1.png"
+        else if(radio.volume < 0.4 && radio.volume >= 0.2)
+            return vol_img_path + "1.png"
+        else return vol_img_path + "0.png"
     }
 
     KeyNavigation.up: btnPre

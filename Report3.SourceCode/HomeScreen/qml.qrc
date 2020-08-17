@@ -263,5 +263,7 @@
         <file>App/Climate/WindDirection.qml</file>
         <file>App/Climate/Image/heating_00.png</file>
         <file>App/Climate/Image/heating_01.png</file>
+        <file>App/Climate/Image/Temp.png</file>
+        <file>App/Radio/Data/Speak_0.png</file>
     </qresource>
 </RCC>
